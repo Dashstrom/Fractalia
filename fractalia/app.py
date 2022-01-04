@@ -1,8 +1,13 @@
 import tkinter as tk
 from PIL import Image, ImageDraw, ImageTk
-from numpy.random.mtrand import randint
-from fractalia.core.julia import JuliaDraw
-from .core import RecursiveDraw, TreeDraw, BarnsleyDraw
+from .core import (
+    RecusiveDraw,
+    TreeDraw,
+    BarnsleyDraw,
+    JuliaDraw,
+    MountainsDraw
+)
+
 import random
 import sys
 
@@ -47,14 +52,14 @@ class App(tk.Tk):
 
     def draw(self, draw: RecursiveDraw) -> None:
         draw.draw(self._draw_img)
-    
+
     def render(self) -> None:
         self.draw(TreeDraw(400, 600))
         self.draw(BarnsleyDraw(300, 300))
-        
+        self.draw(MountainsDraw())
         self.nuages()
         self.update_draw()
-    
+
     def nuages(self) -> None:
         for x in randpop(0, 800, gap=100, repulsion=50, rnd=self.rnd):
             y = self.rnd.randint(50, 150)
@@ -63,4 +68,4 @@ class App(tk.Tk):
             im = self.rnd.choice((-1, 1)) * self.rnd.randint(5, 15) / 100
             print(x, y, zoom, color, im)
             self.draw(JuliaDraw(x, y, zoom, im=im, color=color))
-        
+
