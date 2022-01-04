@@ -1,3 +1,10 @@
+from random import randint
+from .core import (
+    ORANGE1,
+    ORANGE2,
+    ORANGE3,
+    ORANGE4
+)
 import tkinter as tk
 from PIL import Image, ImageDraw, ImageTk
 from .core import (
@@ -37,5 +44,18 @@ class App(tk.Tk):
         # self.draw(TreeDraw(400, 600))
         # self.draw(BarnsleyDraw(400, 300))
         # self.draw(JuliaDraw(zoom = 1))
-        self.draw(MountainsDraw())
+        base = MountainsDraw(max_iterations=2).points()
+
+        def randcolor():
+            return (randint(0,255), randint(0,255), randint(0,255))
+
+        elevation = 50
+        colors = [ORANGE1, ORANGE2, ORANGE3, ORANGE4]
+
+        for p1, p2 in zip(base[:-1], base[1:]):    
+            for i, color in enumerate(colors):
+                p1b = (p1[0], p1[1] + i*elevation)
+                p2b = (p2[0], p2[1] + i*elevation)
+                self.draw(MountainsDraw(p1b, p2b, color=color, vertical_displacement=20))
+        self.draw(MountainsDraw((0, 550), (800, 580), color=ORANGE1, roughness=0.7, vertical_displacement=20))
         self.update_draw()
