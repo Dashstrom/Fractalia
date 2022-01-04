@@ -6,14 +6,28 @@ from .base import DegradedColor, RecusiveDraw, Coloring
 
 @dataclass
 class MountainsDraw(RecusiveDraw):
-    start: tuple = (0, 400)
-    end: tuple = (800, 400)
+    start: tuple = (0, 300)
+    end: tuple = (800, 300)
     roughness: int = 1
-    vertical_displacement: int = 40
+    vertical_displacement: int = 100
     max_iterations: int = 10
     width: int = 4
+    color: tuple = (255, 0, 0)
 
     def draw(self, draw: ImageDraw) -> None:
+        terrain_points = self.points()
+        # Insertion of the bottom-left and right corners in order to draw
+        # a full shape
+        terrain_points.insert(0, (self.start[0], 2000))
+        terrain_points.insert(len(terrain_points), (self.end[0], 2000))
+        draw.polygon(
+            terrain_points,
+            fill=self.color,
+            width=self.width
+        )
+    
+    def points(self) -> list[tuple]:
+        """Applies the midpoint displacement algorithm and returns points"""
         if self.vertical_displacement is None:
             self.vertical_displacement = (self.start[1] + self.end[1]) / 2
         
@@ -35,16 +49,6 @@ class MountainsDraw(RecusiveDraw):
                 insort(terrain_points, tuple(midpoint))
             self.vertical_displacement *= 2 ** (-self.roughness)
             iteration += 1
-        
-        # Insertion of the bottom-left and right corners in order to draw
-        # a full shape
-        terrain_points.insert(0, (0, 800))
-        terrain_points.insert(len(terrain_points), (800,800))
-        draw.polygon(
-            terrain_points,
-            fill="red",
-            width=self.width
-        )
-        
+        return terrain_points
 
 
