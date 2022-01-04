@@ -13,9 +13,10 @@ class MountainsDraw(RecursiveDraw):
     max_iterations: int = 10
     width: int = 4
     color: tuple = (255, 0, 0)
+    _points: list[tuple] = None
 
     def draw(self, draw: ImageDraw) -> None:
-        terrain_points = self.points()
+        terrain_points = self.points
         # Insertion of the bottom-left and right corners in order to draw
         # a full shape
         terrain_points.insert(0, (self.start[0], 2000))
@@ -25,8 +26,13 @@ class MountainsDraw(RecursiveDraw):
             fill=self.color
         )
     
+    @property
     def points(self) -> list[tuple]:
         """Applies the midpoint displacement algorithm and returns points"""
+        
+        if self._points is not None:
+            return self._points
+            
         if self.vertical_displacement is None:
             self.vertical_displacement = (self.start[1] + self.end[1]) / 2
         
@@ -48,6 +54,5 @@ class MountainsDraw(RecursiveDraw):
                 insort(terrain_points, tuple(midpoint))
             self.vertical_displacement *= 2 ** (-self.roughness)
             iteration += 1
-        return terrain_points
-
-
+        self._points = terrain_points
+        return self._points

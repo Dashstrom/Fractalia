@@ -9,7 +9,7 @@ from .base import DegradedColor, RecursiveDraw, Coloring
 class TreeDraw(RecursiveDraw):
     x: float = 1
     y: float = 1
-    max_iterations: int = 10
+    max_iterations: int = 8
     theta: float = pi/2
     gap: float = pi/10
     branch: int = 3
