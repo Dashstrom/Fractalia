@@ -132,3 +132,9 @@ dmypy.json
 
 # Pycharm
 .idea/
+
+# LaTeX
+docs/*.aux
+docs/*.fdb_latexmk
+docs/*.fls
+docs/*.tex

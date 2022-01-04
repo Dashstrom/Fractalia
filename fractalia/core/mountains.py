@@ -2,10 +2,10 @@ from random import choice
 from bisect import insort
 from dataclasses import dataclass
 from PIL import Image, ImageDraw
-from .base import DegradedColor, RecusiveDraw, Coloring
+from .base import DegradedColor, RecursiveDraw, Coloring
 
 @dataclass
-class MountainsDraw(RecusiveDraw):
+class MountainsDraw(RecursiveDraw):
     start: tuple = (0, 300)
     end: tuple = (800, 300)
     roughness: int = 1
@@ -22,8 +22,7 @@ class MountainsDraw(RecusiveDraw):
         terrain_points.insert(len(terrain_points), (self.end[0], 2000))
         draw.polygon(
             terrain_points,
-            fill=self.color,
-            width=self.width
+            fill=self.color
         )
     
     def points(self) -> list[tuple]:

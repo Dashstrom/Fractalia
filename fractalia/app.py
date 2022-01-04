@@ -1,4 +1,3 @@
-from random import randint
 from .core import (
     ORANGE1,
     ORANGE2,
@@ -8,7 +7,7 @@ from .core import (
 import tkinter as tk
 from PIL import Image, ImageDraw, ImageTk
 from .core import (
-    RecusiveDraw,
+    RecursiveDraw,
     TreeDraw,
     BarnsleyDraw,
     JuliaDraw,
@@ -16,16 +15,14 @@ from .core import (
 )
 
 import random
-import sys
 
 
-def randpop(a: int, b: int, gap: int, repulsion: int = None, rnd: random.Random = None) -> list[int]:
+def randpop(a: int, b: int, gap: int, repulsion: int = None) -> list[int]:
     repulsion = repulsion if repulsion else gap
-    randint = rnd.randint if rnd else random.randint
     pop = []
     x = a
     while True:
-        x = randint(x + gap, x + gap + repulsion)
+        x = random.randint(x + gap, x + gap + repulsion)
         if x < b - gap:
             pop.append(x)
         else:
@@ -35,7 +32,7 @@ def randpop(a: int, b: int, gap: int, repulsion: int = None, rnd: random.Random 
 
 class App(tk.Tk):
 
-    def __init__(self, seed: int = None):
+    def __init__(self):
         super().__init__()
         self.resizable(width=True, height=True)
         self.title("Fractalia")
@@ -46,9 +43,6 @@ class App(tk.Tk):
         self._draw_img = ImageDraw.Draw(self.img)
         self._tk_img = None
         self.resizable(False, False)
-        self.seed = seed if seed else random.randint(0, sys.maxsize)
-        self.rnd = random.Random(self.seed)
-        print("Seed:", self.seed)
 
     def update_draw(self) -> None:
         self._tk_img = ImageTk.PhotoImage(self.img)
@@ -61,14 +55,8 @@ class App(tk.Tk):
         draw.draw(self._draw_img)
 
     def render(self) -> None:
-        self.draw(TreeDraw(400, 600))
-        self.draw(BarnsleyDraw(300, 300))
-
+        print("Render mountains ...")
         base = MountainsDraw(max_iterations=2).points()
-
-        def randcolor():
-            return (randint(0, 255), randint(0, 255), randint(0, 255))
-
         elevation = 50
         colors = [ORANGE1, ORANGE2, ORANGE3, ORANGE4]
 
@@ -77,17 +65,20 @@ class App(tk.Tk):
                 p1b = (p1[0], p1[1] + i * elevation)
                 p2b = (p2[0], p2[1] + i * elevation)
                 self.draw(MountainsDraw(p1b, p2b, color=color, vertical_displacement=20))
+        print("Render ground ...")
         self.draw(MountainsDraw((0, 550), (800, 580), color=ORANGE1, roughness=0.7, vertical_displacement=20))
 
-        self.nuages()
-        self.update_draw()
+        self.draw(TreeDraw(400, 600))
+        self.draw(BarnsleyDraw(400, 300))
 
-    def nuages(self) -> None:
-        for x in randpop(0, 800, gap=100, repulsion=50, rnd=self.rnd):
-            y = self.rnd.randint(50, 150)
-            zoom = 10/self.rnd.randint(35, 55)
-            color = (200 + self.rnd.randint(-20, 20),) * 3
-            im = self.rnd.choice((-1, 1)) * self.rnd.randint(5, 15) / 100
-            print(x, y, zoom, color, im)
+        print("Render clouds ...")
+        for x in randpop(0, 800, gap=100, repulsion=50):
+            y = random.randint(50, 150)
+            zoom = 10/random.randint(35, 55)
+            color = (200 + random.randint(-20, 20),) * 3
+            im = random.choice((-1, 1)) * random.randint(5, 15) / 100
             self.draw(JuliaDraw(x, y, zoom, im=im, color=color))
 
+
+        print("Done")
+        self.update_draw()
