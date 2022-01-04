@@ -41,9 +41,7 @@ class App(tk.Tk):
         draw.draw(self._draw_img)
 
     def render(self) -> None:
-        # self.draw(TreeDraw(400, 600))
-        # self.draw(BarnsleyDraw(400, 300))
-        # self.draw(JuliaDraw(zoom = 1))
+        
         base = MountainsDraw(max_iterations=2).points()
 
         def randcolor():
@@ -58,4 +56,9 @@ class App(tk.Tk):
                 p2b = (p2[0], p2[1] + i*elevation)
                 self.draw(MountainsDraw(p1b, p2b, color=color, vertical_displacement=20))
         self.draw(MountainsDraw((0, 550), (800, 580), color=ORANGE1, roughness=0.7, vertical_displacement=20))
+        
+        self.draw(TreeDraw(400, 600))
+        self.draw(BarnsleyDraw(400, 300))
+        self.draw(JuliaDraw(zoom = 1))
+
         self.update_draw()
