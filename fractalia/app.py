@@ -39,7 +39,7 @@ class App(tk.Tk):
         self.configure(bg='white')
         self.can = tk.Canvas(width=800, height=600)
         self.can.pack()
-        self.img = Image.new("RGB", (800, 600), (255, 255, 255))
+        self.img = Image.new("RGB", (800, 600), (114, 155, 242))
         self._draw_img = ImageDraw.Draw(self.img)
         self._tk_img = None
         self.resizable(False, False)
@@ -55,7 +55,7 @@ class App(tk.Tk):
         draw.draw(self._draw_img)
 
     def render(self) -> None:
-        print("Render mountains ...")
+        print("Rendering mountains ...")
         base = MountainsDraw(max_iterations=2).points()
         elevation = 50
         colors = [ORANGE1, ORANGE2, ORANGE3, ORANGE4]
@@ -65,13 +65,13 @@ class App(tk.Tk):
                 p1b = (p1[0], p1[1] + i * elevation)
                 p2b = (p2[0], p2[1] + i * elevation)
                 self.draw(MountainsDraw(p1b, p2b, color=color, vertical_displacement=20))
-        print("Render ground ...")
+        print("Rendering ground ...")
         self.draw(MountainsDraw((0, 550), (800, 580), color=ORANGE1, roughness=0.7, vertical_displacement=20))
 
         self.draw(TreeDraw(400, 600))
         self.draw(BarnsleyDraw(400, 300))
 
-        print("Render clouds ...")
+        print("Rendering clouds ...")
         for x in randpop(0, 800, gap=100, repulsion=50):
             y = random.randint(50, 150)
             zoom = 10/random.randint(35, 55)
