@@ -7,7 +7,7 @@ from PIL.ImageDraw import ImageDraw
 Color = Tuple[int, int, int]
 
 
-class RecusiveDraw(ABC):
+class RecursiveDraw(ABC):
 
     @abstractmethod
     def draw(self, draw: ImageDraw) -> None:

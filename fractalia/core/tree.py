@@ -2,11 +2,11 @@ from math import pi, cos, sin
 from dataclasses import dataclass
 from PIL.ImageDraw import ImageDraw
 
-from .base import DegradedColor, RecusiveDraw, Coloring
+from .base import DegradedColor, RecursiveDraw, Coloring
 
 
 @dataclass
-class TreeDraw(RecusiveDraw):
+class TreeDraw(RecursiveDraw):
     x: float = 1
     y: float = 1
     max_iterations: int = 10

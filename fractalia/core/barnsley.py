@@ -3,7 +3,7 @@ from PIL.ImageDraw import ImageDraw
 from random import random
 import numpy as np
 
-from .base import DegradedColor, RecusiveDraw, Coloring
+from .base import DegradedColor, RecursiveDraw, Coloring
 
 F1a = np.array([[0, 0],
                 [0, .16]])
@@ -31,11 +31,12 @@ F4p = 0.07
 
 
 @dataclass
-class BarnsleyDraw(RecusiveDraw):
+class BarnsleyDraw(RecursiveDraw):
     x: float = 1
     y: float = 1
+    size: float = 1
     max_iterations: int = 10000
-    coloring: Coloring = DegradedColor((112, 86, 64), (63, 161, 56))
+    coloring: Coloring = DegradedColor((85, 122, 45), (26, 173, 39))
 
     def draw(self, draw: ImageDraw) -> None:
         sc = np.array([
@@ -44,7 +45,9 @@ class BarnsleyDraw(RecusiveDraw):
         ])
         v = np.array([[0],
                       [0]])
-        for _ in range(self.max_iterations):
+
+        points = np.array((self.max_iterations, 2))
+        for i in range(self.max_iterations):
             u = random()
             if u < F1p:
                 v = np.dot(F1a, v) + F1b
@@ -54,5 +57,5 @@ class BarnsleyDraw(RecusiveDraw):
                 v = np.dot(F3a, v) + F3b
             else:
                 v = np.dot(F4a, v) + F4b
-            pts = v * 10 + sc
-            draw.point((pts[0][0], pts[1][0]), "red")
+            pts = v * -10 * self.size + sc
+            draw.point((pts[0][0], pts[1][0]), self.coloring.color(i, self.max_iterations))
