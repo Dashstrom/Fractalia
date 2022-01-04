@@ -109,6 +109,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+frac
+start2work.sh
 
 # Spyder project settings
 .spyderproject

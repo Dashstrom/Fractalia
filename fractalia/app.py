@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageDraw, ImageTk
-
+from fractalia.core.julia import JuliaDraw
 from .core import RecusiveDraw, TreeDraw, BarnsleyDraw
 
 
@@ -31,4 +31,5 @@ class App(tk.Tk):
     def render(self) -> None:
         # self.draw(TreeDraw(400, 600))
         # self.draw(BarnsleyDraw(400, 300))
+        self.draw(JuliaDraw(zoom = 1))
         self.update_draw()
