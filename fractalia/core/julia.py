@@ -33,4 +33,3 @@ class JuliaDraw(RecusiveDraw):
                         (x, y),
                         self.color.color(i, self.max_iterations)
                     )
-    
