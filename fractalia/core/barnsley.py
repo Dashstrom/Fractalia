@@ -1,8 +1,10 @@
 from dataclasses import dataclass
-from PIL.ImageDraw import ImageDraw
 from random import random
 import numpy as np
 
+from PIL.ImageDraw import ImageDraw
+
+from .constants import DRIFTWOOD, CELERY
 from .base import DegradedColor, RecursiveDraw, Coloring
 
 F1a = np.array([[0, 0],
@@ -36,7 +38,7 @@ class BarnsleyDraw(RecursiveDraw):
     y: float = 1
     size: float = 1
     max_iterations: int = 10000
-    coloring: Coloring = DegradedColor((85, 122, 45), (26, 173, 39))
+    coloring: Coloring = DegradedColor(DRIFTWOOD, CELERY)
 
     def draw(self, draw: ImageDraw) -> None:
         sc = np.array([
@@ -46,7 +48,6 @@ class BarnsleyDraw(RecursiveDraw):
         v = np.array([[0],
                       [0]])
 
-        points = np.array((self.max_iterations, 2))
         for i in range(self.max_iterations):
             u = random()
             if u < F1p:
@@ -58,4 +59,5 @@ class BarnsleyDraw(RecursiveDraw):
             else:
                 v = np.dot(F4a, v) + F4b
             pts = v * -10 * self.size + sc
-            draw.point((pts[0][0], pts[1][0]), self.coloring.color(i, self.max_iterations))
+            draw.point((pts[0][0], pts[1][0]),
+                       self.coloring.color(i, self.max_iterations))

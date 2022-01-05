@@ -2,6 +2,7 @@ from math import pi, cos, sin
 from dataclasses import dataclass
 from PIL.ImageDraw import ImageDraw
 
+from .constants import BROWN, CELERY
 from .base import DegradedColor, RecursiveDraw, Coloring
 
 
@@ -16,7 +17,7 @@ class TreeDraw(RecursiveDraw):
     length: int = 50
     ratio: float = 3/4
     width: int = 1
-    coloring: Coloring = DegradedColor((112, 86, 64), (63, 161, 56))
+    coloring: Coloring = DegradedColor(BROWN, CELERY)
 
     def draw(self, draw: ImageDraw) -> None:
         self._draw_recursive(draw, self.x, self.y, 0, self.theta, self.length)

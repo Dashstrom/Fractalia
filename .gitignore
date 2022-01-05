@@ -138,3 +138,6 @@ docs/*.aux
 docs/*.fdb_latexmk
 docs/*.fls
 docs/*.tex
+
+# Generated
+out/
