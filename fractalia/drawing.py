@@ -1,5 +1,6 @@
 import random
-
+import numpy as np
+import math
 from PIL import Image, ImageDraw
 
 from .core import (
@@ -31,6 +32,7 @@ def randsign() -> int:
 
 def drawing() -> Image.Image:
     img = Image.new("RGB", (800, 600), (114, 155, 242))
+    img = gen_new_gradient_bg()
     draw_img = ImageDraw.Draw(img)
 
     base = MountainsDraw(max_iterations=2).points
@@ -71,3 +73,34 @@ def drawing() -> Image.Image:
         im = randsign() * random.randint(5, 15) / 100
         JuliaDraw(x, y, zoom, im=im, color=color).draw(draw_img)
     return img
+
+
+def gradient_fill(im, start_color, end_color):
+    """Generates and returns an image made of a gradient between 2 colors"""
+    start_x, start_y = 0, 0
+    pixel_data = im.load()
+    w, h = im.size[0], im.size[1]
+
+    for x in range(w):
+        for y in range(h):
+            #Gets the absolute value in float
+            dist = math.fabs(start_x - x) + math.fabs(start_y - y)
+
+            # reduce distance travelled to a percentage of the total image size
+            dist = dist / (im.size[0] + im.size[1])
+            # run through the rgb object and calculate relative distances between start+end
+            it1 = map(lambda start: start*(1-dist), start_color)
+            it2 = map(lambda end: end*dist, end_color)
+            r, g, b = map(lambda start, end: start+end, it1, it2)
+            pixel_data[x, y] = int(r), int(g), int(b)
+    return im
+
+
+def gen_new_gradient_bg():
+    """Generates a gradient and rotates the image"""
+    img = gradient_fill(
+        Image.new('RGB', (800, 800), (255, 255, 255)),
+        (59, 118, 143),
+        (241, 135, 135)
+    )
+    return img.rotate(270).crop((0, 0, 800, 600))
