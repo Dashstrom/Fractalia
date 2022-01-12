@@ -31,7 +31,6 @@ def randsign() -> int:
 
 
 def drawing() -> Image.Image:
-    img = Image.new("RGB", (800, 600), (114, 155, 242))
     img = gen_new_gradient_bg()
     draw_img = ImageDraw.Draw(img)
 
@@ -83,7 +82,7 @@ def gradient_fill(im, start_color, end_color):
 
     for x in range(w):
         for y in range(h):
-            #Gets the absolute value in float
+            # Gets the absolute value in float
             dist = math.fabs(start_x - x) + math.fabs(start_y - y)
 
             # reduce distance travelled to a percentage of the total image size

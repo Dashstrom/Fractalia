@@ -1,0 +1,18 @@
+img = Image.new("RGBA", (650, 200), (255, 255, 255, 0))
+draw_img = ImageDraw.Draw(img)
+for i in range(5):
+    TreeDraw(i * 125 + 50, 170, i + 1, width=2).draw(draw_img)
+    draw_img.text((i * 125 + 36, 175), f"i = {i}", (0, ) * 3)
+img.save(f"docs/tree.png")
+
+img = Image.new("RGBA", (450, 250), (255, 255, 255, 0))
+draw_img = ImageDraw.Draw(img)
+BarnsleyDraw(75, 230, 2.0, 1000).draw(draw_img)
+draw_img.text((50, 235), "i = 1000", (0, ) * 3)
+BarnsleyDraw(175, 230, 2.0, 5000).draw(draw_img)
+draw_img.text((150, 235), "i = 5000", (0, ) * 3)
+BarnsleyDraw(275, 230, 2.0, 25000).draw(draw_img)
+draw_img.text((250, 235), "i = 25000", (0, ) * 3)
+BarnsleyDraw(375, 230, 2.0, 100000).draw(draw_img)
+draw_img.text((350, 235), "i = 100000", (0, ) * 3)
+img.save(f"docs/barnsley.png")
