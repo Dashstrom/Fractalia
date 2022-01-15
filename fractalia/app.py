@@ -2,7 +2,7 @@ import sys
 import random
 import tkinter as tk
 
-from PIL import Image, ImageDraw, ImageTk
+from PIL import ImageDraw, ImageTk
 from .drawing import gen_new_gradient_bg
 from .drawing import drawing
 
@@ -18,7 +18,6 @@ class App(tk.Tk):
         self.can.pack()
         self.btn = tk.Button(self, text="Relancer", command=self.redraw)
         self.btn.pack(side=tk.BOTTOM)
-        #self.img = Image.new("RGB", (800, 600), (114, 155, 242))
         self.img = gen_new_gradient_bg()
         self._draw_img = ImageDraw.Draw(self.img)
         self._tk_img = None

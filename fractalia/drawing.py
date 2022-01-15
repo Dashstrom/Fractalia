@@ -1,5 +1,4 @@
 import random
-import numpy as np
 import math
 from PIL import Image, ImageDraw
 
@@ -87,9 +86,10 @@ def gradient_fill(im, start_color, end_color):
 
             # reduce distance travelled to a percentage of the total image size
             dist = dist / (im.size[0] + im.size[1])
-            # run through the rgb object and calculate relative distances between start+end
-            it1 = map(lambda start: start*(1-dist), start_color)
-            it2 = map(lambda end: end*dist, end_color)
+            # run through the rgb object
+            # and calculate relative distances between start+end
+            it1 = map(lambda start: start*(1 - dist), start_color)
+            it2 = map(lambda end: end * dist, end_color)
             r, g, b = map(lambda start, end: start+end, it1, it2)
             pixel_data[x, y] = int(r), int(g), int(b)
     return im

@@ -1,17 +1,15 @@
+# pylint: disable=import-outside-toplevel
 import argparse
 from os import makedirs
 import random
 import sys
 
-from tqdm import trange
-
-from .drawing import drawing
-
-from .app import App
-
 
 def main():
-    parser = argparse.ArgumentParser(description="Draw art with fractale")
+    parser = argparse.ArgumentParser(
+        description=("Tkinter application for generate landscapes "
+                     "composed of fractals.")
+    )
     parser.add_argument("-s", "--seed", type=int,
                         help="Seed for random generator")
     parser.add_argument("-n", "--number", type=int,
@@ -23,9 +21,14 @@ def main():
     print("Seed:", seed)
 
     if args.number is None:
+        from .app import App
+
         app = App()
         app.mainloop()
     else:
+        from tqdm import trange
+        from .drawing import drawing
+
         makedirs("out", exist_ok=True)
         for _ in trange(abs(args.number)):
             img = drawing()
