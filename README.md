@@ -11,6 +11,7 @@ Tkinter application for generate landscapes composed of fractals.
 # Install
 ```
 git clone https://github.com/Dashstrom/Fractalia.git
+cd Fractalia
 pip install .
 python3 -m fractalia
 ```
