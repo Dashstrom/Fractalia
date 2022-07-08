@@ -1,28 +1,30 @@
 # Fractalia
+
 Tkinter application for generate landscapes composed of fractals.
 
-
 ## Fractal used
+
 - Barnsley fern
 - Fractal Tree
 - Julia
 - Diamond-square algorithm
 
-# Install
-```
-git clone https://github.com/Dashstrom/Fractalia.git
-cd Fractalia
-pip install .
+## Install
+
+```sh
+pip install git+https://github.com/Dashstrom/Fractalia.git
 python3 -m fractalia
 ```
+
 ## Remove
-```
+
+```sh
 pip uninstall fractalia
 ```
 
 ## Commands
 
-```
+```txt
 usage: python3 -m fractalia [-h] [-s SEED] [-n NUMBER]
 
 Tkinter application for generate landscapes composed of fractals.
@@ -34,20 +36,22 @@ options:
                         Generate N images in directory named 'out'
 ```
 
-## Examples$
-### Commande line
+## Examples
+
 - `python3 -m fractalia` : Open an Tkinter App
-- `python3 -m fractalia -s 42` : Open Tkinter App with seed 78
+- `python3 -m fractalia -s 78` : Open Tkinter App with seed 78
 - `python3 -m fractalia -n 7` : Generate 7 images
 
 ### As import
+
 ```python
 from fractalia import drawing
 
 img = drawing()
 img.show()
 ```
-# Results
+
+## Results
 
 ![Landscape of seed 461170130558899640](https://raw.githubusercontent.com/Dashstrom/Fractalia/main/docs/exemples/461170130558899640.png "461170130558899640")
 ![Landscape of seed 2350265372157330445](https://raw.githubusercontent.com/Dashstrom/Fractalia/main/docs/exemples/2350265372157330445.png "2350265372157330445")

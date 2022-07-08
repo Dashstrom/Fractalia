@@ -16,8 +16,8 @@ REQUIREMENTS = [i.strip() for i in read("requirements.txt").split('\n')]
 setup(
     name='fractalia',
     version="1.0.0",
-    author="***REMOVED*** ***REMOVED*** - William MADIE",
-    author_email='***REMOVED***',
+    author="Dashstrom - William MADIE",
+    author_email='dashstrom.pro@gmail.com',
     url='https://github.com/Dashstrom/Fractalia',
     license=read("LICENSE"),
     packages=find_packages(exclude=('tests', 'docs')),
